@@ -1,0 +1,195 @@
+﻿@model IEnumerable<HW5.ViewModels.StudentVM>
+@{
+    ViewBag.Title = "Students";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2> Student</h2>
+
+
+
+@if (Model.FirstOrDefault().bookOut == true)
+{
+
+    <hr />
+    using (Html.BeginForm("Students", "Home", FormMethod.Post, new { @class = "form-inline", role = "form" }))
+    {
+        <form class="form-inline">
+            <div class="form-group mb-2">
+
+                <input type="text" name="searchstring" class="form-control-plaintext" id="staticEmail2" placeholder="Search Student Name">
+            </div>
+            <span style="margin-left:1%"></span>
+            <div class="form-group mx-sm-3 mb-2">
+                @Html.DropDownList("className", new SelectList(Model.FirstOrDefault().classes, "className", "className"), "Select a  Class", htmlAttributes: new { @class = "form-control" })
+
+            </div>
+            <input style="display:none;" name="id" value=@Model.FirstOrDefault().bookId />
+
+            <span style="margin-left:1%"></span>
+            <div class="form-group mx-sm-3 mb-2">
+                @* @Html.ActionLink("Search", "Index", new { }, new { @class = "btn btn-success mb-8" })
+
+
+                *@<button type="submit" class="btn btn-success mb-2"> Search</button>
+            </div>
+            <span style="margin-left:1%"></span>
+            <div class="form-group mx-sm-3 mb-2">
+                @Html.ActionLink("Clear", "Students", new { id = Model.FirstOrDefault().bookId }, new { @class = "btn btn-danger mb-2 buttons" })
+
+            </div>
+
+        </form>
+    }
+    <hr />
+
+    <div>
+
+        <table class="table">
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Surname
+                </th>
+                <th>
+                    class
+                </th>
+                <th>
+                    Points
+                </th>
+                <th>
+                    Return Book
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.studentId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.surname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.@class)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.point)
+                    </td>
+                    <td>
+                        @if (Model.FirstOrDefault().bookedStudent == item.studentId)
+                        {
+                            @Html.ActionLink("Return Book", "ReturnBook", new { bookId = Model.FirstOrDefault().bookId }, new { @class = "btn btn-primary btn-md" })
+
+                        }
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+
+
+
+}
+else
+{
+
+    <hr />
+    using (Html.BeginForm("Students", "Home", FormMethod.Post, new { @class = "form-inline", role = "form" }))
+    {
+        <form class="form-inline">
+            <div class="form-group mb-2">
+
+                <input type="text" name="searchstring" class="form-control-plaintext" id="staticEmail2" placeholder="Search Student Name">
+            </div>
+            <span style="margin-left:1%"></span>
+            <div class="form-group mx-sm-3 mb-2">
+                @Html.DropDownList("className", new SelectList(Model.FirstOrDefault().classes, "className", "className"), "Select a  Class", htmlAttributes: new { @class = "form-control", id = "Country" })
+
+            </div>
+            <input style="display:none;" name="id" value=@Model.FirstOrDefault().bookId />
+
+            <span style="margin-left:1%"></span>
+            <div class="form-group mx-sm-3 mb-2">
+
+
+                <button type="submit" class="btn btn-success mb-2"> Search</button>
+            </div>
+            <span style="margin-left:1%"></span>
+            <div class="form-group mx-sm-3 mb-2">
+                @Html.ActionLink("Clear", "Students", new { id = Model.FirstOrDefault().bookId }, new { @class = "btn btn-danger mb-2 buttons" })
+
+            </div>
+
+        </form>
+    }
+    <hr />
+
+    <div>
+
+        <table class="table">
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Surname
+                </th>
+                <th>
+                    class
+                </th>
+                <th>
+                    Points
+                </th>
+                <th>
+                    Borrow Book
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.studentId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.surname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.@class)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.point)
+                    </td>
+                    <td>
+
+                        @Html.ActionLink("Borrow Book", "Borrow", new { studentId = item.studentId, bookId = Model.FirstOrDefault().bookId }, new { @class = "btn btn-primary btn-md" })
+
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+
+
+}
+
+

@@ -1,0 +1,131 @@
+﻿@model IEnumerable<HW5.ViewModels.BorrowVM>
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+    @if (Model.FirstOrDefault().available == true)
+    {
+        <h2> @Model.FirstOrDefault().bookName <p style="color:green">- Book Available</p></h2>
+        <hr />
+        <h2> # Borrows - @Model.FirstOrDefault().borrowNum <span style="margin-left:71%" /> @Html.ActionLink("View Students", "Students", new { id = Model.FirstOrDefault().bookId }, new { @class = "btn btn-primary btn-md" }) </h2>
+
+        <hr />
+
+        <div>
+
+            <table class="table">
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Taken Date
+                    </th>
+                    <th>
+                        Brought Date
+                    </th>
+                    <th>
+                        Borrowed By
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.borrowId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.takenDate)
+                        </td>
+                        <td>
+                            @if (item.broughtDate != null)
+                            {
+                                @Html.DisplayFor(modelItem => item.broughtDate)
+                            }
+                            else
+                            {
+
+                                <p>Book Out</p>
+                            }
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.studentName) @Html.DisplayFor(modelItem => item.studentSurname)
+                        </td>
+
+                    </tr>
+                }
+
+            </table>
+
+        </div>
+
+
+    
+    }
+    else
+    {
+        <h2> @Model.FirstOrDefault().bookName <p style="color:red">- Book Out</p></h2>
+        <hr />
+        <h2> # Borrows - @Model.FirstOrDefault().borrowNum <span style="margin-left:71%" /> @Html.ActionLink("View Students", "Students", new { id = Model.FirstOrDefault().bookId }, new { @class = "btn btn-primary btn-md" }) </h2>
+        <hr />
+
+        <div>
+
+            <table class="table">
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Taken Date
+                    </th>
+                    <th>
+                        Brought Date
+                    </th>
+                    <th>
+                        Borrowed By
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.borrowId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.takenDate)
+                        </td>
+                        <td>
+                            @if (item.broughtDate != null)
+                            {
+                                @Html.DisplayFor(modelItem => item.broughtDate)
+                            }
+                            else
+                            {
+
+                                <p>Book Out</p>
+                            }
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.studentName) @Html.DisplayFor(modelItem => item.studentSurname)
+                        </td>
+
+                    </tr>
+                }
+
+            </table>
+
+        </div>
+    
+    }
+
+}
+
+

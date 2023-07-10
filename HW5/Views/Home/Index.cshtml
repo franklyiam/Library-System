@@ -1,0 +1,115 @@
+﻿@model IEnumerable<HW5.ViewModels.BookVM>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h2>Books</h2>
+<hr />
+@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "form-inline", role = "form" }))
+{
+<form class="form-inline">
+    <div class="form-group mb-2">
+
+        <input type="text" name="searchstring" class="form-control-plaintext" id="staticEmail2" placeholder="Search Book Name">
+    </div>
+    <span style="margin-left:1%"></span>
+    <div class="form-group mx-sm-3 mb-2">
+        @Html.DropDownList("typeid", new SelectList(Model.FirstOrDefault().types, "typeId", "name"), "Select a Type", htmlAttributes: new { @class = "form-control", id = "Country" })
+
+    </div>
+    <span style="margin-left:1%"></span>
+    <div class="form-group mx-sm-3 mb-2">
+        @Html.DropDownList("authorid", new SelectList(Model.FirstOrDefault().authors, "authorId", "name"), "Select a Author", htmlAttributes: new { @class = "form-control", id = "Country" })
+
+    </div>
+    <span style="margin-left:1%"></span>
+    <div class="form-group mx-sm-3 mb-2">
+
+
+        <button type="submit" class="btn btn-success mb-2"> Search</button>
+    </div>
+    <span style="margin-left:1%"></span>
+    <div class="form-group mx-sm-3 mb-2">
+        @Html.ActionLink("Clear", "Index", new { @class = "buttons" }, new { @class = "btn btn-danger mb-2 buttons" })
+
+    </div>
+
+</form>
+}
+<hr />
+
+
+<table class="table">
+    <tr>
+        <th>
+            #
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Author
+        </th>
+        <th>
+            Type
+        </th>
+        <th>
+            Page Count
+        </th>
+        <th>
+            Points
+        </th>
+        <th>
+            Status
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.bookId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.authorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.typeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.pagecount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.point)
+            </td>
+            <td>
+                @if (item.available == true)
+                {
+
+                    <p style="color:green">Available</p>
+                }
+                else
+                {
+
+                    <p style="color:red">Out</p>
+                }
+            </td>
+
+
+            <td>
+
+                @Html.ActionLink("View", "Details", new { id = item.bookId }, new { @class = "btn btn-primary btn-sm" })
+            </td>
+        </tr>
+    }
+
+</table>
